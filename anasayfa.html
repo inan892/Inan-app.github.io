@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dersler</title>
+    <!-- FontAwesome için bağlantı ekliyoruz -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Sayfa arka planı ve animasyon */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(45deg, #ff6b81, #ffd700, #4caf50, #3498db);
+            background-size: 400% 400%;
+            animation: gradientAnimation 10s ease infinite;
+            color: #fff;
+            text-align: center;
+            overflow: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* Animasyonlu arka plan */
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Gece modunda kullanılacak animasyon */
+        @keyframes nightModeAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Gece Modu */
+        .night-mode {
+            background: linear-gradient(45deg, #2f2f2f, #1c1c1c, #3c3c3c, #212121);
+            background-size: 400% 400%;
+            animation: nightModeAnimation 10s ease infinite;
+            color: #ccc;
+        }
+
+        /* Başlıklar */
+        header {
+            padding-top: 100px;
+        }
+
+        header h1 {
+            font-size: 50px;
+            margin: 0;
+            color: #fff;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        header h2 {
+            font-size: 28px;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Butonlar için stil */
+        .button-container {
+            margin: 30px;
+            display: inline-block;
+        }
+
+        button.btn {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #333;
+            font-size: 20px;
+            padding: 15px 32px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        button.btn:hover {
+            background-color: #3498db;
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        button.btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Gece modu butonu konumlandırma */
+        #nightModeButton {
+            position: fixed;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #333;
+            color: white;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        #nightModeButton:hover {
+            background-color: #3498db;
+            transform: scale(1.1);
+        }
+
+        #nightModeButton:active {
+            transform: scale(0.98);
+        }
+
+        /* Çıkış butonu konumlandırma */
+        #logoutButton {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        #logoutButton:hover {
+            background-color: #e60000;
+        }
+
+        /* Mobil uyumlu */
+        @media screen and (max-width: 600px) {
+            header h1 {
+                font-size: 40px;
+            }
+
+            header h2 {
+                font-size: 20px;
+            }
+
+            button.btn {
+                font-size: 18px;
+                padding: 12px 24px;
+            }
+
+            #nightModeButton {
+                font-size: 25px;
+                padding: 12px;
+            }
+
+            #logoutButton {
+                font-size: 16px;
+                padding: 10px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Ana Sayfa</h1>
+        <h2>Lütfen istediğiniz dersi seçin</h2>
+    </header>
+    
+    <button id="logoutButton">Çıkış Yap</button> <!-- Çıkış Butonu -->
+
+    <div class="button-container">
+        <a href="sosyal.html">
+            <button class="btn">Sosyal Bilgiler</button>
+        </a>
+    </div>
+    
+    <div class="button-container">
+        <a href="fen.html">
+            <button class="btn">Fen Bilimleri</button>
+        </a>
+    </div>
+    
+    <div class="button-container">
+        <a href="türkçe.html">
+            <button class="btn">Türkçe</button>
+        </a>
+    </div>
+    
+    <div class="button-container">
+        <a href="matematik.html">
+            <button class="btn">Matematik</button>
+        </a>
+    </div>
+    
+    <div class="button-container">
+        <a href="proje.html">
+            <button class="btn">Proje</button>
+        </a>
+    </div>
+
+    <div class="button-container">
+        <!-- Gece Modu Simgesi Butonu -->
+        <button id="nightModeButton">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <script>
+        const nightModeButton = document.getElementById('nightModeButton');
+        nightModeButton.addEventListener('click', () => {
+            document.body.classList.toggle('night-mode');
+            const icon = nightModeButton.querySelector('i');
+            if (document.body.classList.contains('night-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+
+        // Çıkış yapma işlemi
+        document.getElementById('logoutButton').addEventListener('click', () => {
+            localStorage.removeItem('loggedInUser'); // Kullanıcıyı localStorage'dan kaldır
+            window.location.href = 'login.html'; // Giriş sayfasına yönlendir
+        });
+    </script>
+</body>
+</html>
+
