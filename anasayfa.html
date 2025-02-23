@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dersler</title>
-    <!-- FontAwesome için bağlantı ekliyoruz -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Sayfa arka planı ve animasyon */
-        body {
+              body {
             margin: 0;
             font-family: 'Arial', sans-serif;
             background: linear-gradient(45deg, #ff6b81, #ffd700, #4caf50, #3498db);
@@ -182,63 +180,48 @@
     
     <button id="logoutButton">Çıkış Yap</button> <!-- Çıkış Butonu -->
 
+    <!-- Ders Butonları -->
     <div class="button-container">
         <a href="sosyal.html">
             <button class="btn">Sosyal Bilgiler</button>
         </a>
     </div>
-    
     <div class="button-container">
         <a href="fen.html">
             <button class="btn">Fen Bilimleri</button>
         </a>
     </div>
-    
     <div class="button-container">
         <a href="türkçe.html">
             <button class="btn">Türkçe</button>
         </a>
     </div>
-    
     <div class="button-container">
         <a href="matematik.html">
             <button class="btn">Matematik</button>
         </a>
     </div>
-    
     <div class="button-container">
         <a href="proje.html">
             <button class="btn">Proje</button>
         </a>
     </div>
 
+    <!-- Ödev Ekleme Bölümü -->
+    <div class="button-container" id="homeworkContainer" style="display: none;">
+        <h3>Ödev Ekle</h3>
+        <textarea id="homeworkInput" rows="4" cols="50" placeholder="Ödevinizi buraya yazın..."></textarea><br>
+        <button class="btn" id="saveHomeworkButton">Ödevi Kaydet</button>
+        <ul id="homeworkDisplay"></ul> <!-- Ödevler burada gösterilecek -->
+    </div>
+
     <div class="button-container">
-        <!-- Gece Modu Simgesi Butonu -->
         <button id="nightModeButton">
             <i class="fas fa-moon"></i>
         </button>
     </div>
 
-    <script>
-        const nightModeButton = document.getElementById('nightModeButton');
-        nightModeButton.addEventListener('click', () => {
-            document.body.classList.toggle('night-mode');
-            const icon = nightModeButton.querySelector('i');
-            if (document.body.classList.contains('night-mode')) {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            } else {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
-            }
-        });
-
-        // Çıkış yapma işlemi
-        document.getElementById('logoutButton').addEventListener('click', () => {
-            localStorage.removeItem('loggedInUser'); // Kullanıcıyı localStorage'dan kaldır
-            window.location.href = 'index.html'; // Giriş sayfasına yönlendir
-        });
-    </script>
+    <script src="anasayfa.js"></script>
 </body>
 </html>
 
