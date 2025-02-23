@@ -5,9 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matematik Ödev Takip Tablosu</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f7f7f7;
+        }
+
+        td[contenteditable="true"] {
+            background-color: #e1f5fe;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 14px;
+        }
+
+        #saveButton {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        #saveButton:hover {
+            background-color: #45a049;
+        }
         /* Renk Paleti */
         :root {
             --primary-color: #e64a19; /* Kapalı Turuncu Tema */
@@ -161,15 +216,13 @@
         p{
             color: #000000;
         }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Matematik</h1>
-        <button id="mode-toggle">
-            <span id="mode-icon" class="fas fa-moon"></span> <!-- Başlangıçta ay simgesi -->
-        </button>
-
+        <h1>Matematik Ödev Takip</h1>
+        <div id="welcomeMessage"></div>
         <table>
             <tr>
                 <th>Aktif Ödevler</th>
@@ -177,21 +230,23 @@
                 <th>Nerelerden</th>
             </tr>
             <tr>
-                <td class="readonly">Ödev Yok</td>
-                <td class="readonly">Ödev Yok</td>
-                <td class="readonly">Ödev Yok</td>
-            </tr>
-            <tr>
-                <td class="readonly">Ödev Yok</td>
+                <td id="assignment1" class="readonly">Ödev Yok</td>
                 <td class="readonly">Ödev Yok</td>
                 <td class="readonly">Ödev Yok</td>
             </tr>
             <tr>
+                <td id="assignment2" class="readonly">Ödev Yok</td>
                 <td class="readonly">Ödev Yok</td>
+                <td class="readonly">Ödev Yok</td>
+            </tr>
+            <tr>
+                <td id="assignment3" class="readonly">Ödev Yok</td>
                 <td class="readonly">Ödev Yok</td>
                 <td class="readonly">Ödev Yok</td>
             </tr>
         </table>
+
+        <button id="saveButton">Kaydet</button>
     </div>
 
     <footer>
@@ -199,19 +254,57 @@
     </footer>
 
     <script>
-        // Gece/Gündüz Modu Değişimi
-        document.getElementById('mode-toggle').addEventListener('click', function () {
-            document.body.classList.toggle('dark-mode');
-            document.querySelector('.container').classList.toggle('dark-mode');
-            
-            let icon = document.getElementById('mode-icon');
-            if (document.body.classList.contains('dark-mode')) {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun'); // Gündüz simgesine geçiş
+        window.addEventListener('load', function() {
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            const saveButton = document.getElementById('saveButton');
+
+            if (loggedInUser) {
+                welcomeMessage.textContent = `Hoş geldiniz, ${loggedInUser}!`;
+
+                // Sadece operatörlerin ödevleri değiştirmesine izin ver
+                if (loggedInUser === 'uras' || loggedInUser === 'inan') {
+                    document.getElementById('assignment1').contentEditable = true;
+                    document.getElementById('assignment2').contentEditable = true;
+                    document.getElementById('assignment3').contentEditable = true;
+
+                    // Kaydet butonunun etkinleştirilmesi
+                    saveButton.disabled = false;
+                } else {
+                    // Diğer kullanıcılar için kaydet butonunu devre dışı bırak
+                    saveButton.disabled = true;
+                }
             } else {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon'); // Gece simgesine geçiş
+                window.location.href = 'index.html'; // Giriş yapılmadıysa yönlendir
             }
+
+            // Ödevler kaydedildiğinde, localStorage'a kaydet
+            saveButton.addEventListener('click', function() {
+                if (loggedInUser === 'uras' || loggedInUser === 'inan') {
+                    // Ödevlerin içeriğini al
+                    const assignment1 = document.getElementById('assignment1').textContent;
+                    const assignment2 = document.getElementById('assignment2').textContent;
+                    const assignment3 = document.getElementById('assignment3').textContent;
+
+                    // Ödevleri localStorage'a kaydet
+                    localStorage.setItem('assignment1', assignment1);
+                    localStorage.setItem('assignment2', assignment2);
+                    localStorage.setItem('assignment3', assignment3);
+
+                    alert('Ödevler kaydedildi!');
+                } else {
+                    alert('Sadece operatörler bu işlemi yapabilir.');
+                }
+            });
+
+            // Sayfa yüklendiğinde, daha önce kaydedilen ödevleri yükle
+            const savedAssignment1 = localStorage.getItem('assignment1');
+            const savedAssignment2 = localStorage.getItem('assignment2');
+            const savedAssignment3 = localStorage.getItem('assignment3');
+
+            if (savedAssignment1) document.getElementById('assignment1').textContent = savedAssignment1;
+            if (savedAssignment2) document.getElementById('assignment2').textContent = savedAssignment2;
+            if (savedAssignment3) document.getElementById('assignment3').textContent = savedAssignment3;
         });
     </script>
 </body>
